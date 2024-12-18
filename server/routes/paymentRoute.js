@@ -74,6 +74,68 @@ const paymentRoute = express.Router();
  *         description: 'Server error'
  */
 
+/**
+ * @swagger
+ * /api/payment:
+ *   get:
+ *     summary: Get all payments
+ *     tags: [Payments]
+ *     responses:
+ *       200:
+ *         description: List of all payments retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Payment'
+ *       500:
+ *         description: Server error
+ */
+
+/**
+ * @swagger
+ * /api/payment/{id}:
+ *   delete:
+ *     summary: Delete a payment by ID
+ *     tags: [Payments]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the payment to delete
+ *     responses:
+ *       200:
+ *         description: Payment deleted successfully
+ *       404:
+ *         description: Payment not found
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
+ */
+
+/**
+ * @swagger
+ * /api/payment/delete-all:
+ *   delete:
+ *     summary: Delete all payments
+ *     tags: [Payments]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: All payments deleted successfully
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
+ */
+
 paymentRoute.put('/payment', paymentController.processPayment);
 paymentRoute.get('/payment', paymentController.getAllPayments);
 paymentRoute.get('/payment/receipt/:paymentId', paymentController.downloadReceipt);

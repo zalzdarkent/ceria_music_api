@@ -158,4 +158,34 @@ facilityRoute.post('/facility', authMiddleware, facilityController.createFacilit
  */
 facilityRoute.delete('/facility/:id', authMiddleware, facilityController.deleteFacility);
 
+/**
+ * @swagger
+ * /api/facility/search:
+ *   get:
+ *     summary: Cari fasilitas berdasarkan nama
+ *     tags: [Facilities]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: name
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Nama fasilitas yang akan dicari
+ *     responses:
+ *       200:
+ *         description: Daftar fasilitas yang sesuai
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Facility'
+ *       401:
+ *         description: Tidak diotorisasi
+ *       500:
+ *         description: Terjadi kesalahan server
+ */
+
 module.exports = facilityRoute;

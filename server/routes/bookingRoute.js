@@ -114,6 +114,98 @@
  *         description: Internal server error
  */
 
+/**
+ * @swagger
+ * /api/booking:
+ *   get:
+ *     summary: Get all bookings
+ *     tags: [Bookings]
+ *     responses:
+ *       200:
+ *         description: List of bookings retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Booking'
+ *       500:
+ *         description: Internal server error
+ */
+
+/**
+ * @swagger
+ * /api/booking/search:
+ *   get:
+ *     summary: Search bookings by customer name
+ *     tags: [Bookings]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: name
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Name of the customer
+ *     responses:
+ *       200:
+ *         description: Search results retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Booking'
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Internal server error
+ */
+
+/**
+ * @swagger
+ * /api/booking/{id}:
+ *   delete:
+ *     summary: Delete a booking by ID
+ *     tags: [Bookings]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Booking ID
+ *     responses:
+ *       200:
+ *         description: Booking deleted successfully
+ *       404:
+ *         description: Booking not found
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Internal server error
+ */
+
+/**
+ * @swagger
+ * /api/booking:
+ *   delete:
+ *     summary: Delete all bookings
+ *     tags: [Bookings]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: All bookings deleted successfully
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Internal server error
+ */
+
 const express = require('express');
 const bookingController = require('../controllers/bookingController');
 const authMiddleware = require('../middleware/auth');

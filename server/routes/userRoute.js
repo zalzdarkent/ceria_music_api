@@ -1,7 +1,7 @@
 /**
  * @swagger
  * tags:
- *   name: Users
+ *   name: User
  *   description: Endpoints untuk autentikasi admin
  */
 
@@ -15,7 +15,7 @@ const upload = require('../middleware/upload');
  * @swagger
  * /api/user/login:
  *   post:
- *     tags: [Users]
+ *     tags: [User]
  *     summary: Login user
  *     requestBody:
  *       required: true
@@ -56,7 +56,7 @@ userRoute.post('/user/login', userController.login);
  * /api/user/update:
  *   put:
  *     summary: Perbarui profil pengguna
- *     tags: [Users]
+ *     tags: [User]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -100,9 +100,9 @@ userRoute.post('/user/login', userController.login);
  *         description: Terjadi kesalahan server
  */
 userRoute.put('/user/update', authMiddleware, upload('user'), userController.updateProfile);
-userRoute.post('/forgot-password', userController.forgotPassword);
-userRoute.post('/reset-password/:token', userController.resetPassword);
-userRoute.post('/reset-password', userController.resetPassword);
+userRoute.post('/user/forgot-password', userController.forgotPassword);
+userRoute.post('/user/reset-password/:token', userController.resetPassword);
+userRoute.post('/user/reset-password', userController.resetPassword);
 userRoute.get('/user', authMiddleware, userController.getUser);
 
 /**
@@ -110,7 +110,7 @@ userRoute.get('/user', authMiddleware, userController.getUser);
  * /api/user/logout:
  *   post:
  *     summary: Logout pengguna
- *     tags: [Users]
+ *     tags: [User]
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -120,5 +120,95 @@ userRoute.get('/user', authMiddleware, userController.getUser);
  *         description: Terjadi kesalahan server
  */
 userRoute.post('/user/logout', authMiddleware, userController.logout);
+
+/**
+ * @swagger
+ * /api/user/forgot-password:
+ *   post:
+ *     summary: Request a password reset email
+ *     tags:
+ *       - User
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: Email address of the user
+ *                 example: user@example.com
+ *     responses:
+ *       200:
+ *         description: Password reset email sent successfully
+ *       400:
+ *         description: Invalid email
+ *       500:
+ *         description: Internal server error
+ * 
+ * /api/user/reset-password/{token}:
+ *   get:
+ *     summary: Validate a password reset token
+ *     tags:
+ *       - User
+ *     parameters:
+ *       - in: path
+ *         name: token
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Token for resetting the password
+ *     responses:
+ *       200:
+ *         description: Token is valid
+ *       400:
+ *         description: Invalid or expired token
+ *       500:
+ *         description: Internal server error
+ * 
+ * /api/user/reset-password:
+ *   post:
+ *     summary: Reset the user's password
+ *     tags:
+ *       - User
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               token:
+ *                 type: string
+ *                 description: Password reset token
+ *                 example: abc123
+ *               newPassword:
+ *                 type: string
+ *                 description: New password for the user
+ *                 example: newSecurePassword123
+ *     responses:
+ *       200:
+ *         description: Password successfully updated
+ *       400:
+ *         description: Invalid token or password
+ *       500:
+ *         description: Internal server error
+ * 
+ * /api/user:
+ *   get:
+ *     summary: Get the authenticated user's profile
+ *     tags:
+ *       - User
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved user profile
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal server error
+ */
 
 module.exports = userRoute;
