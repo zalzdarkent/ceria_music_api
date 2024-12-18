@@ -100,9 +100,9 @@ userRoute.post('/user/login', userController.login);
  *         description: Terjadi kesalahan server
  */
 userRoute.put('/user/update', authMiddleware, upload('user'), userController.updateProfile);
-userRoute.post('/user/forgot-password', userController.forgotPassword);
-userRoute.post('/user/reset-password/:token', userController.resetPassword);
-userRoute.post('/user/reset-password', userController.resetPassword);
+userRoute.post('/forgot-password', userController.forgotPassword);
+userRoute.post('/reset-password/:token', userController.resetPassword);
+userRoute.post('/reset-password', userController.resetPassword);
 userRoute.get('/user', authMiddleware, userController.getUser);
 
 /**
@@ -123,7 +123,7 @@ userRoute.post('/user/logout', authMiddleware, userController.logout);
 
 /**
  * @swagger
- * /api/user/forgot-password:
+ * api/forgot-password:
  *   post:
  *     summary: Request a password reset email
  *     tags:
@@ -147,7 +147,7 @@ userRoute.post('/user/logout', authMiddleware, userController.logout);
  *       500:
  *         description: Internal server error
  * 
- * /api/user/reset-password/{token}:
+ * api/reset-password/{token}:
  *   get:
  *     summary: Validate a password reset token
  *     tags:
@@ -167,7 +167,7 @@ userRoute.post('/user/logout', authMiddleware, userController.logout);
  *       500:
  *         description: Internal server error
  * 
- * /api/user/reset-password:
+ * /api/reset-password:
  *   post:
  *     summary: Reset the user's password
  *     tags:
@@ -195,7 +195,7 @@ userRoute.post('/user/logout', authMiddleware, userController.logout);
  *       500:
  *         description: Internal server error
  * 
- * /api/user:
+ * api/user:
  *   get:
  *     summary: Get the authenticated user's profile
  *     tags:
