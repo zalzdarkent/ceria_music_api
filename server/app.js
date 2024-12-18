@@ -206,5 +206,5 @@ cron.schedule('* * * * *', async () => { // Cron berjalan setiap menit
 
 app.listen(port, () => {
     console.log(`Server is running on https://ceriamusicapi-production.up.railway.app/`);
-    console.log(`Swagger documentation available at https://ceriamusicapi-production.up.railway.app/docs`);
+    console.log(`Swagger documentation available at http://localhost:${port}/docs`);
 });
