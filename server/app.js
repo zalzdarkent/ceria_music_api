@@ -191,7 +191,7 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.get('/', (req, res) => {
-    res.send('Selamat datang di API Studio Musik Rental!');
+    res.send('Welcome to API Studio Musik Rental!');
 });
 
 // route
@@ -206,5 +206,5 @@ cron.schedule('* * * * *', async () => { // Cron berjalan setiap menit
 
 app.listen(port, () => {
     console.log(`Server is running on https://ceriamusicapi-production.up.railway.app/`);
-    console.log(`Swagger documentation available at http://localhost:${port}/docs`);
+    console.log(`Swagger documentation available at https://ceriamusicapi-production.up.railway.app/docs`);
 });
