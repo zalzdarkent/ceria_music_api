@@ -125,5 +125,6 @@ dashboardRoute.get('/total-bookings', authMiddleware, dashboardController.getTot
 
 // Route untuk mendapatkan total pendapatan
 dashboardRoute.get('/total-revenue', authMiddleware, dashboardController.getTotalRevenue);
+dashboardRoute.get('/monthly-revenue', authMiddleware, dashboardController.getMonthlyRevenue);
 
 module.exports = dashboardRoute;
