@@ -31,7 +31,6 @@ const paymentController = {
 
             payment.payment_status = 'Paid'
             payment.receipt_status = 'Paid'
-            payment.payment_date = now;
             await payment.save();
 
             if (payment.payment_status === 'Paid') {

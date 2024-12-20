@@ -26,6 +26,16 @@ const bookingController = {
             const startLocal = moment.tz(`${date}T${startTime}:00`, 'Asia/Jakarta').toDate();
             const endLocal = moment.tz(`${date}T${endTime}:00`, 'Asia/Jakarta').toDate();
 
+            // Tambahkan validasi untuk tanggal di masa lalu
+            const today = moment().tz('Asia/Jakarta').startOf('day');
+            const bookingDate = moment.tz(date, 'Asia/Jakarta').startOf('day');
+
+            if (bookingDate.isBefore(today)) {
+                return res.status(400).json({
+                    message: 'Booking cannot be made for past dates.',
+                });
+            }
+
             // Konversi ke UTC untuk disimpan di database
             const startUTC = moment(startLocal).utc().toDate();
             const endUTC = moment(endLocal).utc().toDate();
@@ -204,7 +214,6 @@ const bookingController = {
             doc.text(`Total Amount: ${formattedTotalAmount}`);
             doc.text(`Payment Code: ${payment.payment_code}`);
             doc.text(`Payment Status: ${payment.payment_status}`);
-            doc.text(`Payment Date: ${paymentDateLocal}`);
             doc.moveDown();
             doc.text('Thank you for booking with us!', { align: 'center' });
 
