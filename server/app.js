@@ -22,7 +22,7 @@ const swaggerOptions = {
     definition: {
         openapi: '3.0.0',
         info: {
-            title: 'Seamus Management API',
+            title: 'Ceria Music Management API',
             version: '1.0.0',
             description: 'API documentation for Music Studio Rent System'
         },
